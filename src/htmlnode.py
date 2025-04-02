@@ -10,6 +10,7 @@ class HTMLNode:
         raise NotImplementedError("to_html method not implemented")
     
     def props_to_html(self):
+        """converts props to html"""
 
         if self.props is None:
             return ""
@@ -30,6 +31,7 @@ class LeafNode(HTMLNode):
         
 
     def to_html(self):
+        """conerts to html format"""
         if self.value is None:
             raise ValueError("HTML invalid: needs a value")
         
