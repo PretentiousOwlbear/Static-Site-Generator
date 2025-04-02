@@ -42,7 +42,7 @@ def split_nodes_image(old_nodes):
     """Splits image markdown into its own node with given nodes text"""
 
     new_nodes = []
-
+    
     for node in old_nodes:
         if node.text_type != TextType.TEXT:
             new_nodes.append(node)
@@ -52,7 +52,7 @@ def split_nodes_image(old_nodes):
         images = extract_markdown_images(text)
 
         if len(images) == 0:
-            new_nodes.append(images)
+            new_nodes.append(node)
             continue
        
         for image in images:
@@ -91,7 +91,7 @@ def split_nodes_link(old_nodes):
         links = extract_markdown_links(text)
 
         if len(links) == 0:
-            new_nodes.append(links)
+            new_nodes.append(node)
             continue
 
        
