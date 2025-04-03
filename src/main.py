@@ -1,10 +1,11 @@
 from textnode import TextNode, TextType
 from htmlnode import LeafNode
+from create_files import create_files
+
 
 
 def main():
-
-    test = TextNode('This is some anchor text', 'link', 'https://www.boot.dev')
-    print(test)
+    create_files()
+    
 
 main()
