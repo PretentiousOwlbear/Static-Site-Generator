@@ -1,5 +1,6 @@
 from markdown_blocks import markdown_to_html_node, markdown_to_blocks, block_to_block_type, BlockType
 import os
+from pathlib import Path
 
 
 def generate_page(from_path, template_path, dest_path):
@@ -8,7 +9,7 @@ def generate_page(from_path, template_path, dest_path):
 
     markdown_file = open(from_path,'r')
     template_file = open(template_path,'r')
-    dest_file = open(dest_path,'w')
+    
 
     markdown_txt = markdown_file.read()
     markdown_file.close()
@@ -25,6 +26,7 @@ def generate_page(from_path, template_path, dest_path):
     if not os.path.exists(dir):
         os.makedirs(dir)
     
+    dest_file = open(dest_path,'w')
     dest_file.write(template_txt)
     dest_file.close()
 
@@ -43,3 +45,18 @@ def extract_title(markdown):
     raise Exception("No title found")
 
 
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    
+    content_dirs = os.listdir(f"{dir_path_content}")
+
+    for dirs in content_dirs:
+
+        path = os.path.join(dir_path_content, dirs)
+        dest = os.path.join(dest_dir_path, dirs)
+
+        if os.path.isfile(path):
+            dest = Path(dest).with_suffix(".html")
+            generate_page(path, template_path, dest)
+
+        else:
+            generate_pages_recursive(path, template_path, dest)
