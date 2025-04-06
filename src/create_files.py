@@ -30,7 +30,9 @@ def create_files():
     static_path = "./static"
 
     if not os.path.exists(public_path):
-        raise FileNotFoundError("Directory 'public' does not exist")
+        print("Directory 'public' does not exist, creating public directory")
+        os.mkdir(public_path)
+        
     if not os.path.exists(static_path):
         raise FileNotFoundError("Directory 'static' does not exist")
     print("Deleting public directory")

@@ -131,7 +131,3 @@ def block_node(block, block_type):
         return ParentNode("ol",block_list)
     
     raise ValueError("Invalid block type")
-    
-    
-
-

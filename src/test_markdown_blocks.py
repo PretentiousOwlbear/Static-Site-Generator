@@ -1,5 +1,5 @@
 import unittest
-from markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType, markdown_to_html_node
+from markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType, markdown_to_html_node, extract_title
 
 
 class TestMarkdownToHTML(unittest.TestCase):
@@ -181,6 +181,22 @@ this is paragraph text
             "<div><h1>this is an h1</h1><p>this is paragraph text</p><h2>this is an h2</h2></div>",
         )
 
+
+    def test_extract_title(self):
+        md = """
+# this is an h1
+
+this is paragraph text
+
+## this is an h2
+"""
+
+        title = extract_title(md)
+        
+        self.assertEqual(
+            title,
+            "this is an h1",
+        )
 
 if __name__ == "__main__":
     unittest.main()
