@@ -23,20 +23,21 @@ def copy_files(file_path, file_dest):
             copy_files(f"{path}", f"{dest}")
 
     
-def create_files():
+def create_files(public_path, static_path):
     """runs create files to clean and create files in public"""
 
-    public_path = "./public"
-    static_path = "./static"
+    
+    if os.path.exists(public_path):
+        print(f"Deleting {public_path} directory")
+        shutil.rmtree(public_path)
 
     if not os.path.exists(public_path):
-        print("Directory 'public' does not exist, creating public directory")
         os.mkdir(public_path)
         
     if not os.path.exists(static_path):
         raise FileNotFoundError("Directory 'static' does not exist")
-    print("Deleting public directory")
+    
     clean_public(public_path)
-    print("Copying static files to public")
+    print(f"Copying static files to {public_path}")
     copy_files(static_path, public_path)
  

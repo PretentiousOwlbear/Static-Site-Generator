@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     '''generates the page'''
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
 
@@ -20,6 +20,7 @@ def generate_page(from_path, template_path, dest_path):
     title = extract_title(markdown_txt)
 
     template_txt = template_txt.replace("{{ Title }}", title).replace("{{ Content }}", markdown_html)
+    template_txt = template_txt.replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
 
     dir = os.path.dirname(dest_path)
 
@@ -45,7 +46,7 @@ def extract_title(markdown):
     raise Exception("No title found")
 
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     
     content_dirs = os.listdir(f"{dir_path_content}")
 
@@ -56,7 +57,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
 
         if os.path.isfile(path):
             dest = Path(dest).with_suffix(".html")
-            generate_page(path, template_path, dest)
+            generate_page(path, template_path, dest, basepath)
 
         else:
-            generate_pages_recursive(path, template_path, dest)
+            generate_pages_recursive(path, template_path, dest,basepath)
